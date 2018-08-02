@@ -1,0 +1,115 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x00400000         0x00080000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /tmp/ccyHMlNN.o
+LOAD /tmp/ccKJnWwf.o
+                0x00400000                __ram_start = 0x400000
+                0x00080000                __ram_length = 0x80000
+                0x0047fffc                __stack = ((__ram_start + __ram_length) - 0x4)
+                0x0047effc                _heap_end = (__stack - 0x1000)
+                0x0047fffc                PROVIDE (__stack, ((__ram_start + __ram_length) - 0x4))
+                0x0001a34c                PROVIDE (__rom_size, (__data_end - __ram_start))
+
+.vectors        0x00400000       0x28
+ *(.vectors)
+ .vectors       0x00400000       0x28 /tmp/ccyHMlNN.o
+                0x00400028                . = ALIGN (0x4)
+
+.text           0x00400028    0x16ce0
+                0x00400028                PROVIDE (__text_start, .)
+ *(.text)
+ .text          0x00400028      0x258 /tmp/ccyHMlNN.o
+                0x00400068                __mulsi3
+                0x004000a4                __udivsi3
+                0x004001a0                __divsi3
+                0x00400208                __umodsi3
+                0x00400228                __modsi3
+ .text          0x00400280    0x16a88 /tmp/ccKJnWwf.o
+                0x0040f248                main
+ *(.text.*)
+                0x00416d08                . = ALIGN (0x4)
+
+.rodata         0x00416d08     0x2e34
+ *(.rodata)
+ .rodata        0x00416d08      0xa40 /tmp/ccKJnWwf.o
+ *(.rodata.str1.1)
+ .rodata.str1.1
+                0x00417748     0x23f4 /tmp/ccKJnWwf.o
+                               0x250c (size before relaxing)
+                0x00419b3c                . = ALIGN (0x4)
+                0x00419b3c                __data_ram = .
+                0x00419b3c                PROVIDE (__data_ram, .)
+
+.data           0x00419b3c      0x810
+                0x00419b3c                . = ALIGN (0x4)
+                0x00419b3c                __data_start = .
+                0x00419b3c                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00419b3c        0x0 /tmp/ccyHMlNN.o
+ .data          0x00419b3c      0x810 /tmp/ccKJnWwf.o
+ *(.data.*)
+                0x0041a34c                __data_end = .
+                0x0041a34c                PROVIDE (__data_end, .)
+
+.bss            0x0041a34c     0x6974
+                0x0041a34c                . = ALIGN (0x4)
+                0x0041a34c                __bss_start = .
+                0x0041a34c                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0041a34c        0x0 /tmp/ccyHMlNN.o
+ .bss           0x0041a34c     0x6974 /tmp/ccKJnWwf.o
+                0x00420cc0                __bss_end = .
+                0x00420cc0                PROVIDE (__bss_end, .)
+                0x00420cc0                . = ALIGN (0x4)
+                0x00420cc0                PROVIDE (_heap_start, .)
+
+.stack          0x00420cc0     0x1000
+ *(.stack)
+ .stack         0x00420cc0     0x1000 /tmp/ccyHMlNN.o
+OUTPUT(bin/de1_boot.or32 elf32-or32)
+
+.debug_abbrev   0x00000000      0x624
+ .debug_abbrev  0x00000000      0x624 /tmp/ccKJnWwf.o
+
+.debug_info     0x00000000     0x784e
+ .debug_info    0x00000000     0x784e /tmp/ccKJnWwf.o
+
+.debug_line     0x00000000     0xc995
+ .debug_line    0x00000000     0xc995 /tmp/ccKJnWwf.o
+
+.debug_frame    0x00000000      0xa14
+ .debug_frame   0x00000000      0xa14 /tmp/ccKJnWwf.o
+
+.debug_loc      0x00000000     0x748a
+ .debug_loc     0x00000000     0x748a /tmp/ccKJnWwf.o
+
+.debug_pubnames
+                0x00000000       0x1b
+ .debug_pubnames
+                0x00000000       0x1b /tmp/ccKJnWwf.o
+
+.debug_pubtypes
+                0x00000000      0x639
+ .debug_pubtypes
+                0x00000000      0x639 /tmp/ccKJnWwf.o
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 /tmp/ccKJnWwf.o
+
+.debug_ranges   0x00000000      0xa10
+ .debug_ranges  0x00000000      0xa10 /tmp/ccKJnWwf.o
+
+.debug_str      0x00000000     0x1c9a
+ .debug_str     0x00000000     0x1c9a /tmp/ccKJnWwf.o
+                               0x1e95 (size before relaxing)
+
+.comment        0x00000000       0x51
+ .comment       0x00000000       0x51 /tmp/ccKJnWwf.o
+                                 0x52 (size before relaxing)

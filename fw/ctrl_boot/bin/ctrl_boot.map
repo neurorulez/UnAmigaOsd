@@ -1,0 +1,114 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x00000000         0x00001400         xr
+ram              0x00440000         0x00020000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /tmp/ccYq84Kl.o
+LOAD /tmp/ccGnx2Yn.o
+                0x00440000                __ram_start = 0x440000
+                0x00020000                __ram_length = 0x20000
+                0x00000000                __rom_start = 0x0
+                0x00001400                __rom_length = 0x1400
+                0x0045fffc                __stack = ((__ram_start + __ram_length) - 0x4)
+                0x0045effc                _heap_end = (__stack - 0x1000)
+                0x0045fffc                PROVIDE (__stack, ((__ram_start + __ram_length) - 0x4))
+                0x00000ebc                PROVIDE (__rom_size, ((__data_rom + __data_end) - __data_start))
+
+.vectors        0x00000000       0x18
+ *(.vectors)
+ .vectors       0x00000000       0x18 /tmp/ccYq84Kl.o
+                0x00000018                . = ALIGN (0x4)
+
+.text           0x00000018      0xe84
+                0x00000018                PROVIDE (__text_start, .)
+ *(.text)
+ .text          0x00000018       0x6c /tmp/ccYq84Kl.o
+                0x00000048                __mulsi3
+ .text          0x00000084      0xe18 /tmp/ccGnx2Yn.o
+                0x0000051c                main
+ *(.text.*)
+                0x00000e9c                . = ALIGN (0x4)
+
+.rodata         0x00000e9c       0x20
+ *(.rodata)
+ *(.rodata.str1.1)
+ .rodata.str1.1
+                0x00000e9c       0x1e /tmp/ccGnx2Yn.o
+                0x00000ebc                . = ALIGN (0x4)
+ *fill*         0x00000eba        0x2 00
+                0x00000ebc                __data_rom = .
+                0x00000ebc                PROVIDE (__data_rom, .)
+
+.data           0x00440000        0x0 load address 0x00000ebc
+                0x00440000                . = ALIGN (0x4)
+                0x00440000                __data_start = .
+                0x00440000                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00440000        0x0 /tmp/ccYq84Kl.o
+ .data          0x00440000        0x0 /tmp/ccGnx2Yn.o
+ *(.data.*)
+                0x00440000                . = ALIGN (0x4)
+                0x00440000                __data_end = .
+                0x00440000                PROVIDE (__data_end, .)
+
+.bss            0x00440000      0x24c load address 0x00000ebc
+                0x00440000                . = ALIGN (0x4)
+                0x00440000                __bss_start = .
+                0x00440000                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00440000        0x0 /tmp/ccYq84Kl.o
+ .bss           0x00440000      0x24c /tmp/ccGnx2Yn.o
+                0x0044024c                __bss_end = .
+                0x0044024c                PROVIDE (__bss_end, .)
+                0x0044024c                . = ALIGN (0x4)
+                0x0044024c                PROVIDE (_heap_start, .)
+
+.stack          0x0044024c     0x1000 load address 0x00001108
+ *(.stack)
+ .stack         0x0044024c     0x1000 /tmp/ccYq84Kl.o
+OUTPUT(bin/ctrl_boot.or32 elf32-or32)
+
+.debug_abbrev   0x00000000      0x31f
+ .debug_abbrev  0x00000000      0x31f /tmp/ccGnx2Yn.o
+
+.debug_info     0x00000000      0xb3a
+ .debug_info    0x00000000      0xb3a /tmp/ccGnx2Yn.o
+
+.debug_line     0x00000000      0xb91
+ .debug_line    0x00000000      0xb91 /tmp/ccGnx2Yn.o
+
+.debug_frame    0x00000000       0xec
+ .debug_frame   0x00000000       0xec /tmp/ccGnx2Yn.o
+
+.debug_loc      0x00000000      0x768
+ .debug_loc     0x00000000      0x768 /tmp/ccGnx2Yn.o
+
+.debug_pubnames
+                0x00000000       0x1b
+ .debug_pubnames
+                0x00000000       0x1b /tmp/ccGnx2Yn.o
+
+.debug_pubtypes
+                0x00000000       0xca
+ .debug_pubtypes
+                0x00000000       0xca /tmp/ccGnx2Yn.o
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 /tmp/ccGnx2Yn.o
+
+.debug_ranges   0x00000000      0x1a0
+ .debug_ranges  0x00000000      0x1a0 /tmp/ccGnx2Yn.o
+
+.debug_str      0x00000000      0x3e2
+ .debug_str     0x00000000      0x3e2 /tmp/ccGnx2Yn.o
+                                0x441 (size before relaxing)
+
+.comment        0x00000000       0x51
+ .comment       0x00000000       0x51 /tmp/ccGnx2Yn.o
+                                 0x52 (size before relaxing)
